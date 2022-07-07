@@ -2,7 +2,16 @@ import random
 import sys
 from os import system, name
 
-words = open("words.txt", "r").split()
+
+def get_words():
+    words_list = open("words.txt", "r")
+
+    word = []
+    for word in words_list:
+        words = words_list.split()
+        word.append(words)
+    words.close()
+
 
 correctLetters = ''
 wrongLetters = ''
@@ -49,6 +58,11 @@ hangmans = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
         "  +---+\n  |   |\n  O   |\n /|\  |\n /    |\n      |\n=========",
 
         "  +---+\n  |   |\n  O   |\n /|\  |\n / \  |\n      |\n========="]
+
+
+def random_word(words):
+    word = random.randint(0, len(words) -1)
+    return word[words]
 
 
 def startgame():
@@ -109,7 +123,8 @@ def main_menu():
                     1.Start Game
                     2.Instructions
                     3.Exit game
-                 """)
+
+                    Make your choice : """)
     if choice == '1':
         startgame()
     elif choice == '2':
@@ -123,3 +138,5 @@ def main_menu():
 
 
 main_menu()
+
+get_words()
