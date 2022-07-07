@@ -2,6 +2,8 @@ import random
 import sys
 from os import system, name
 
+words = open("words.txt", "r")
+
 
 def clear():
     """
@@ -52,7 +54,10 @@ def startgame():
     """
     clear()
     logo()
+    user = input("\nWhat is your name? : ")
+    print(f"\nWelcome {user}, enjoy the game!\n")
     print(hangmans[6])
+
 
 
 def instuctions():
@@ -93,3 +98,4 @@ def main_menu():
 
 
 main_menu()
+
