@@ -3,8 +3,9 @@ import sys
 from os import system, name
 
 
-words_list = open("words.txt", "r")
-
+words = []
+for line in open('words.txt','r').readlines():
+    words.append(line.strip())
 
 correctLetters = ''
 wrongLetters = ''
@@ -52,10 +53,6 @@ hangmans = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
 
         "  +---+\n  |   |\n  O   |\n /|\  |\n / \  |\n      |\n========="]
 
-
-def random_word(words):
-    word = random.randint(0, len(words) -1)
-    return word[words]
 
 
 def startgame():
@@ -135,3 +132,4 @@ def main_menu():
 
 
 main_menu()
+print(words)
