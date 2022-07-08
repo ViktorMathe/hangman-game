@@ -3,14 +3,7 @@ import sys
 from os import system, name
 
 
-def get_words():
-    words_list = open("words.txt", "r")
-
-    word = []
-    for word in words_list:
-        words = words_list.split()
-        word.append(words)
-    words.close()
+words_list = open("words.txt", "r")
 
 
 correctLetters = ''
@@ -119,24 +112,26 @@ def main_menu():
     """
     clear()
     logo()
-    choice = input("""
-                    1.Start Game
-                    2.Instructions
-                    3.Exit game
+    while True:
+        try:
+            choice = input("""
+                            1.Start Game
+                            2.Instructions
+                            3.Exit game
 
-                    Make your choice : """)
-    if choice == '1':
-        startgame()
-    elif choice == '2':
-        instructions()
-    elif choice == '3':
-        sys.exit()
-    elif choice == '':
-        None
-    else:
-        print('Invalid choice,please choose from option 1,2 or 3!')
+                            Make your choice : """)
+            if choice == '1':
+                startgame()
+                break
+            elif choice == '2':
+                instructions()
+                break
+            elif choice == '3':
+                sys.exit()
+            else:
+                print('Invalid choice,please choose from option 1,2 or 3!')
+        except ValueError():
+            print('No match with any numbers in the menu')
 
 
 main_menu()
-
-get_words()
