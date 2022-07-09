@@ -7,6 +7,10 @@ words = []
 for line in open('words.txt','r').readlines():
     words.append(line.strip())
 
+
+hangman_word = random.choice(words)
+
+
 correctLetters = ''
 wrongLetters = ''
 
@@ -54,7 +58,6 @@ hangmans = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
         "  +---+\n  |   |\n  O   |\n /|\  |\n / \  |\n      |\n========="]
 
 
-
 def startgame():
     """
     This method will start the game from scratch
@@ -64,7 +67,6 @@ def startgame():
     user = input("\nWhat is your name? : ")
     print(f"\nWelcome {user}, enjoy the game!\n")
     print(hangmans[0])
-
 
 
 
@@ -79,15 +81,15 @@ def instructions():
     You will see empty dashes which is shows you how many letters are in the random word \n
     what you have to guess letter by letter or if you confident you can type the whole word. \n
     You have 6 wrong attemps before the game is finished,\n
-    if you can guess it before you can see all the body parts on the gallow you WIN! /n
+    if you can guess it before you can see all the body parts on the gallow you WIN! \n
     """)
     while True:
         try:
             ready = input("Are you ready for the game? Y/N : ")
-            if ready == 'y':
+            if (ready == 'y' or ready == 'Y'):
                 startgame()
                 break
-            elif ready == 'n':
+            elif (ready == 'n' or ready == 'N'):
                 main_menu()
                 break
             else:
@@ -131,5 +133,4 @@ def main_menu():
             print('No match with any numbers in the menu')
 
 
-main_menu()
-print(words)
+print(hangman_word)
