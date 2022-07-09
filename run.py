@@ -4,7 +4,7 @@ from os import system, name
 
 
 words = []
-for line in open('words.txt','r').readlines():
+for line in open('words.txt', 'r').readlines():
     words.append(line.strip())
 
 
@@ -32,70 +32,24 @@ def logo():
     Hangman logo
     """
     print("""
-         _                                            
-        | |                                            
-        | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
-        | '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+         _
+        | |
+        | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __
+        | '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \
         | | | | (_| | | | | (_| | | | | | | (_| | | | |
         |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
-                            __/ |                      
-                           |___/                       
+                            __/ |
+                           |___/
                    """)
 
 
 hangmans = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
-
-        "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
-
-        "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
-
-        "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
-
-        "  +---+\n  |   |\n  O   |\n /|\  |\n      |\n      |\n=========",
-
-        "  +---+\n  |   |\n  O   |\n /|\  |\n /    |\n      |\n=========",
-
-        "  +---+\n  |   |\n  O   |\n /|\  |\n / \  |\n      |\n========="]
-
-
-def startgame():
-    """
-    This method will start the game from scratch
-    """
-    clear()
-    logo()
-    user = input("\nWhat is your name? : ")
-    print(f"\nWelcome {user}, enjoy the game!\n")
-    print(hangmans[0])
-
-
-
-def instructions():
-    """
-    This will tell you how to play the game
-    """
-    clear()
-    logo()
-    print("""
-    When you start the game you have to type your name in and press enter then the game starts.\n
-    You will see empty dashes which is shows you how many letters are in the random word \n
-    what you have to guess letter by letter or if you confident you can type the whole word. \n
-    You have 6 wrong attemps before the game is finished,\n
-    if you can guess it before you can see all the body parts on the gallow you WIN! \n
-    """)
-    while True:
-        try:
-            ready = input("Are you ready for the game? Y/N : ")
-            if (ready == 'y' or ready == 'Y'):
-                startgame()
-                break
-            elif (ready == 'n' or ready == 'N'):
-                main_menu()
-                break
-            else:
-                print("Invalid choice please type Y for yes or N for no!")
-        except ValueError:
-            print("Wrong input been made")
+            "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\  |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\  |\n /    |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\  |\n / \  |\n      |\n========="]
 
 
 menu = {}
@@ -133,4 +87,47 @@ def main_menu():
             print('No match with any numbers in the menu')
 
 
-print(hangman_word)
+def instructions():
+    """
+    This will tell you how to play the game
+    """
+    clear()
+    logo()
+    print("""
+    When you start the game you have to type your name in and press enter
+    then the game starts.\n
+    You will see empty dashes which is shows you
+    how many letters are in the random word \n
+    what you have to guess letter by letter or if you confident
+    you can type the whole word. \n
+    You have 6 wrong attemps before the game is finished,\n
+    if you can guess it before you can see all the body parts
+    on the gallow you WIN! \n
+    """)
+    while True:
+        try:
+            ready = input("Are you ready for the game? Y/N : ")
+            if (ready == 'y' or ready == 'Y'):
+                startgame()
+                break
+            elif (ready == 'n' or ready == 'N'):
+                main_menu()
+                break
+            else:
+                print("Invalid choice please type Y for yes or N for no!")
+        except ValueError:
+            print("Wrong input been made")
+
+
+def startgame():
+    """
+    This method will start the game from scratch
+    """
+    clear()
+    logo()
+    user = input("\nWhat is your name? : ")
+    print(f"\nWelcome {user}, enjoy the game!\n")
+    print(hangmans[0])
+
+
+main_menu()
