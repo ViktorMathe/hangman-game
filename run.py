@@ -8,11 +8,9 @@ for line in open('words.txt', 'r').readlines():
     words.append(line.strip())
 
 
-hangman_word = random.choice(words)
+hangman_word = random.choice(words).upper()
 
-
-correctLetters = ''
-wrongLetters = ''
+guessed_letters= []
 
 
 def clear():
@@ -127,7 +125,23 @@ def startgame():
     logo()
     user = input("\nWhat is your name? : ")
     print(f"\nWelcome {user}, enjoy the game!\n")
-    print(hangmans[0])
+    word = '_' * len(hangman_word)
+    guessed_word = False
+    tries = 6
+    print(hangmans[0], "\n")
+    print(word, '\n')
+    while not guessed_word and tries > 0:
+        guess = input("Please guess a letter or word: ").upper()
+        if len(guess) == 1 and guess.isalpha():
+            if guess not in hangman_word:
+                print(f"{guess} is not in the word.")
+                tries -= 1
+                guessed_letters.append(guess)
+            elif guess in guessed_letters:
+                print("You already guessed this letter.")
+            else:
+                print(f"Good job, {guess} is in the word!")
+                guessed_letters.append(guess)
 
 
 main_menu()
