@@ -10,7 +10,7 @@ for line in open('words.txt', 'r').readlines():
 
 hangman_word = random.choice(words).upper()
 
-guessed_letters= []
+guessed_letters = []
 
 
 def clear():
@@ -30,24 +30,72 @@ def logo():
     Hangman logo
     """
     print("""
-         _
-        | |
-        | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __
-        | '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \
-        | | | | (_| | | | | (_| | | | | | | (_| | | | |
-        |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
-                            __/ |
-                           |___/
+     _
+    | |
+    | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __
+    | '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_  \\
+    | | | | (_| | | | | (_| | | | | | | (_| | | | |
+    |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                        __/ |
+                       |___/
                    """)
 
 
-hangmans = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
-            "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
-            "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
-            "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
-            "  +---+\n  |   |\n  O   |\n /|\  |\n      |\n      |\n=========",
-            "  +---+\n  |   |\n  O   |\n /|\  |\n /    |\n      |\n=========",
-            "  +---+\n  |   |\n  O   |\n /|\  |\n / \  |\n      |\n========="]
+def hangmans(parts):
+    """
+    Hangman art
+    """
+    parts_shown = ['''
+      +---+
+      |   |
+      O   |
+     /|\  |
+     / \  |
+          |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+     /|\  |
+     /    |
+          |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+     /|\  |
+          |
+          |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+     /|   |
+          |
+          |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+      |   |
+          |
+          |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+          |
+          |
+          |
+    =========''', '''
+      +---+
+      |   |
+          |
+          |
+          |
+          |
+    =========''']
+    return parts_shown[parts]
 
 
 menu = {}
@@ -64,25 +112,23 @@ def main_menu():
     clear()
     logo()
     while True:
-        try:
-            choice = input("""
+        choice = input("""
                             1.Start Game
                             2.Instructions
                             3.Exit game
 
                             Make your choice : """)
-            if choice == '1':
-                startgame()
-                break
-            elif choice == '2':
-                instructions()
-                break
-            elif choice == '3':
-                sys.exit()
-            else:
-                print('Invalid choice,please choose from option 1,2 or 3!')
-        except ValueError():
-            print('No match with any numbers in the menu')
+        if choice == '1':
+            startgame()
+            break
+        elif choice == '2':
+            instructions()
+            break
+        elif choice == '3':
+            print('Thanks for playing! :)')
+            sys.exit()
+        else:
+            print('Invalid choice,please choose from option 1,2 or 3!')
 
 
 def instructions():
@@ -103,18 +149,15 @@ def instructions():
     on the gallow you WIN! \n
     """)
     while True:
-        try:
-            ready = input("Are you ready for the game? Y/N : ")
-            if (ready == 'y' or ready == 'Y'):
-                startgame()
-                break
-            elif (ready == 'n' or ready == 'N'):
-                main_menu()
-                break
-            else:
-                print("Invalid choice please type Y for yes or N for no!")
-        except ValueError:
-            print("Wrong input been made")
+        ready = input("Are you ready for the game? Y/N : ")
+        if ready.lower() == 'y':
+            startgame()
+            break
+        elif ready.lower() == 'n':
+            main_menu()
+            break
+        else:
+            print("Invalid choice please type Y for yes or N for no!")
 
 
 def startgame():
@@ -125,12 +168,13 @@ def startgame():
     logo()
     user = input("\nWhat is your name? : ")
     print(f"\nWelcome {user}, enjoy the game!\n")
-    word = '_' * len(hangman_word)
+    word = ' _ ' * len(hangman_word)
     guessed_word = False
     tries = 6
-    print(hangmans[0], "\n")
-    print(word, '\n')
     while not guessed_word and tries > 0:
+        print(hangmans(tries))
+        print(word)
+        print(f"Guessed letters: {guessed_letters}")
         guess = input("Please guess a letter or word: ").upper()
         if len(guess) == 1 and guess.isalpha():
             if guess not in hangman_word:
@@ -142,6 +186,18 @@ def startgame():
             else:
                 print(f"Good job, {guess} is in the word!")
                 guessed_letters.append(guess)
+                letter_in_word = list(word)
+                in_letter = [i for i, letter in enumerate(hangman_word)
+                             if letter == guess]
+                for index in in_letter:
+                    letter_in_word[index] = guess
+                word = "".join(letter_in_word)
+                if "_" not in word:
+                    guessed_word = True
+        if len(guess) == guess.isalpha():
+            if guess is hangman_word:
+                print(f'Congrats! {guess} is the word!')
+                break
 
 
 main_menu()
