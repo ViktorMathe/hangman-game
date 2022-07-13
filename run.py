@@ -191,7 +191,7 @@ def startgame(hangman_word):
     logo()
     user = input("\nWhat is your name? : ")
     print(f"\nWelcome {user}, enjoy the game!\n")
-    word = " _ " * len(hangman_word)
+    word = ["_"] * len(hangman_word)
     guessed = False
     tries = 6
     guessed_letters = []
@@ -203,26 +203,28 @@ def startgame(hangman_word):
         guess = input("Please guess a letter or word: ").upper()
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
+                clear()
                 print("You already guessed this letter.")
             elif guess not in hangman_word:
+                clear()
                 print(f"{guess} is not in the word.")
                 tries -= 1
                 guessed_letters.append(guess)
             else:
+                clear()
                 print(f"Good job, {guess} is in the word!")
                 guessed_letters.append(guess)
-                letter_in_word = list(word)
-                indices = [i for i, letter in enumerate(hangman_word)
-                           if letter == guess]
-                for index in indices:
-                    letter_in_word[index] = guess
-                word = "".join(letter_in_word)
+                for i, letter in enumerate(hangman_word):
+                    if letter != "_" and guess == letter:
+                        word[i] = letter
                 if "_" not in word:
                     guessed = True
-        elif len(guess) == len(hangman_word) and guess.isalpha():
+        elif len(guess) > 1 and guess.isalpha():
             if guess in guessed_word:
+                clear()
                 print("You already tried this word")
-            elif guess != word:
+            elif guess != hangman_word:
+                clear()
                 print(f"{guess} is not the word!")
                 tries -= 1
                 guessed_word.append(guess)
@@ -230,6 +232,7 @@ def startgame(hangman_word):
                 guessed = True
                 word = hangman_word
         else:
+            clear()
             print("Not a valid guess!")
 
         print(hangmans(tries))
@@ -239,6 +242,7 @@ def startgame(hangman_word):
         print("That is the word! You are a WINNER!")
         play_again(hangman_word)
     else:
+        clear()
         print(hangmans(0))
         print("Sorry, you run out of tries")
         play_again(hangman_word)
