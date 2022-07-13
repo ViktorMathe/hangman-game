@@ -8,10 +8,12 @@ for line in open('words.txt', 'r').readlines():
     words.append(line.strip())
 
 
-hangman_word = random.choice(words).upper()
-
-guessed_letters = []
-guessed_word = []
+def getting_word():
+    """
+    Choose a random word from the words.txt file
+    """
+    hangman_word = random.choice(words)
+    return hangman_word.upper()
 
 
 def clear():
@@ -26,13 +28,18 @@ def clear():
         _ = system('clear')
 
 
-def play_again():
+def play_again(hangman_word):
+    """
+    Let the player decide if they want to play
+    a new game or exit it.
+    """
     while True:
         try_again = input("Would you like to try again? Y/N: ")
         if try_again.lower() == 'y':
             startgame(hangman_word)
             break
         elif try_again.lower() == 'n':
+            print("Thanks for playing! :)")
             sys.exit()
             break
         else:
@@ -118,7 +125,7 @@ menu['2'] = 'Instructions'
 menu['3'] = 'Exit game'
 
 
-def main_menu():
+def main_menu(hangman_word):
 
     """
     Menu to start a game or read the instructions to how to play!
@@ -136,7 +143,7 @@ def main_menu():
             startgame(hangman_word)
             break
         elif choice == '2':
-            instructions()
+            instructions(hangman_word)
             break
         elif choice == '3':
             print('Thanks for playing! :)')
@@ -145,7 +152,7 @@ def main_menu():
             print('Invalid choice,please choose from option 1,2 or 3!')
 
 
-def instructions():
+def instructions(hangman_word):
     """
     This will tell you how to play the game
     """
@@ -168,7 +175,7 @@ def instructions():
             startgame(hangman_word)
             break
         elif ready.lower() == 'n':
-            main_menu()
+            main_menu(hangman_word)
             break
         else:
             print("Invalid choice please type Y for yes or N for no!")
@@ -185,25 +192,27 @@ def startgame(hangman_word):
     word = " _ " * len(hangman_word)
     guessed = False
     tries = 6
+    guessed_letters = []
+    guessed_word = []
+    print(hangmans(tries))
+    print('\n', word, '\n')
+    print(f"Guessed letters: {guessed_letters} \n")
     while not guessed and tries > 0:
-        print(hangmans(tries))
-        print('\n', word, '\n')
-        print(f"Guessed letters: {guessed_letters} \n")
         guess = input("Please guess a letter or word: ").upper()
         if len(guess) == 1 and guess.isalpha():
-            if guess not in hangman_word:
+            if guess in guessed_letters:
+                print("You already guessed this letter.")
+            elif guess not in hangman_word:
                 print(f"{guess} is not in the word.")
                 tries -= 1
                 guessed_letters.append(guess)
-            elif guess in guessed_letters:
-                print("You already guessed this letter.")
             else:
                 print(f"Good job, {guess} is in the word!")
                 guessed_letters.append(guess)
                 letter_in_word = list(word)
-                in_letter = [i for i, letter in enumerate(hangman_word)
-                             if letter == guess]
-                for index in in_letter:
+                indices = [i for i, letter in enumerate(hangman_word)
+                           if letter == guess]
+                for index in indices:
                     letter_in_word[index] = guess
                 word = "".join(letter_in_word)
                 if "_" not in word:
@@ -212,22 +221,33 @@ def startgame(hangman_word):
             if guess in guessed_word:
                 print("You already tried this word")
             elif guess != word:
-                print(guess, "is not the word!")
+                print(f"{guess} is not the word!")
                 tries -= 1
                 guessed_word.append(guess)
             else:
                 guessed = True
                 word = hangman_word
         else:
-            print(hangmans(tries))
-            print('\n', word, '\n')
-            print(f"Guessed letters: {guessed_letters}")
+            print("Not a valid guess!")
+
+        print(hangmans(tries))
+        print('\n', word, '\n')
+        print(f"Guessed letters: {guessed_letters}")
     if guessed:
         print("That is the word! You are a WINNER!")
-        play_again()
+        play_again(hangman_word)
     else:
+        print(hangmans(0))
         print("Sorry, you run out of tries")
-        play_again()
+        play_again(hangman_word)
 
 
-main_menu()
+def start():
+    """
+    This is start the game
+    """
+    hangman_word = getting_word()
+    main_menu(hangman_word)
+
+
+start()
