@@ -246,6 +246,8 @@ def startgame(hangman_word):
         clear()
         print(hangmans(0))
         print("Sorry, you run out of tries")
+        word = hangman_word
+        print("The word was:", word)
         play_again(hangman_word)
 
 
