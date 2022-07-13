@@ -39,6 +39,7 @@ def play_again(hangman_word):
             startgame(hangman_word)
             break
         elif try_again.lower() == 'n':
+            clear()
             print("Thanks for playing! :)")
             sys.exit()
             break
@@ -146,6 +147,7 @@ def main_menu(hangman_word):
             instructions(hangman_word)
             break
         elif choice == '3':
+            clear()
             print('Thanks for playing! :)')
             sys.exit()
         else:
