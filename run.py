@@ -219,6 +219,7 @@ def startgame(hangman_word):
                         word[i] = letter
                 if "_" not in word:
                     guessed = True
+                    word = hangman_word
         elif len(guess) > 1 and guess.isalpha():
             if guess in guessed_word:
                 clear()
