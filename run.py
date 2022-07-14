@@ -8,7 +8,7 @@ for line in open('words.txt', 'r').readlines():
     words.append(line.strip())
 
 
-def getting_word():
+def getting_word(hangman_word):
     """
     Choose a random word from the words.txt file
     """
@@ -36,6 +36,7 @@ def play_again(hangman_word):
     while True:
         try_again = input("Would you like to try again? Y/N: ")
         if try_again.lower() == 'y':
+            hangman_word = getting_word(words)
             startgame(hangman_word)
             break
         elif try_again.lower() == 'n':
@@ -255,7 +256,7 @@ def start():
     """
     This is start the game
     """
-    hangman_word = getting_word()
+    hangman_word = getting_word(words)
     main_menu(hangman_word)
 
 
