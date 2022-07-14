@@ -134,13 +134,14 @@ def main_menu(hangman_word):
     """
     clear()
     logo()
+    user = input("\nWhat is your name? : ")
     while True:
-        choice = input("""
+        choice = input(f"""
                             1.Start Game
                             2.Instructions
                             3.Exit game
 
-                            Make your choice : """)
+                Dear {user} type the number of your choice: """)
         if choice == '1':
             startgame(hangman_word)
             break
@@ -190,8 +191,6 @@ def startgame(hangman_word):
     """
     clear()
     logo()
-    user = input("\nWhat is your name? : ")
-    print(f"\nWelcome {user}, enjoy the game!\n")
     word = ["_"] * len(hangman_word)
     guessed = False
     tries = 6
