@@ -32,6 +32,11 @@
 
 ![Exit](./assets/images/exit.png)
 
+## FlowChart:
+
+- I used Lucidchart to plan the flow of the game and how the decision make will work. You can find the link to my [Lucidchart template here](https://lucid.app/lucidchart/12c7a1ba-c80f-4678-991f-04c46a79653e/edit?viewport_loc=-181%2C19%2C3072%2C1441%2C0_0&invitationId=inv_4ee5baff-20f1-49aa-b5e0-bdd4b511fcf3#), but you need a login to see it. If you do not have a login for the Lucidchart website I share an image about it.
+
+![FlowChart](./assets/images/flowchart.png)
 
 ## Testing:
 
