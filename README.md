@@ -1,5 +1,19 @@
 # Hangman Game
 
+## _**Contents**_
+
+* [User Experience](#user-experience)
+
+* [FlowChart](#flowchart)
+
+* [Testing](#testing)
+    * [Solved Bugs](#solved-bugs)
+    * [PEP8 Online Checker](#pep8-online)
+
+* [Deployment](#deployment)
+
+* [Credits](#credits)
+
 ## User experience:
 - When the user go on the website will see a hangman ASCII art and ask for the name of the user, when the user type the name in the main menu will come with 3 choices.
 
@@ -40,7 +54,7 @@
 
 ## Testing:
 
-### Bugs:
+### Solved Bugs:
 1. I made an if/elif/else statement to the options if the user put different input then for example 1,2,3 it will raise an error and retry it but if the user put the wrong input the code just executed. I had to use a while loop to sort it out.
 2. The letters are not swapped with the empty dashes that is why you could never win the game. I had to restructure the "for" enumerate statementet to make it work.
 3. When the player wanted to play again the dashed word was always the same. I had to add the random method in the startgame method.
